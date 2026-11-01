@@ -68,6 +68,10 @@ h2{margin:0 0 14px;font-size:26px;font-weight:800}
 .ct li>span:first-child{min-width:96px;font-weight:700}
 .ct a{direction:ltr;font-weight:600;text-decoration:underline;text-decoration-color:var(--brand);text-decoration-thickness:2px;text-underline-offset:4px}
 .mute{opacity:.6;font-size:14px}
+.vb{margin-bottom:24px}
+.vb b{display:block;margin-bottom:8px;font-size:17px}
+.fr{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000}
+.fr iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 footer{padding:26px 0 40px;text-align:center;font-size:13px;opacity:.7}
 :focus-visible{outline:3px solid var(--navy);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.path .l,.path .n.end{animation:none}}
@@ -92,7 +96,11 @@ var CONFIG = {
   ],
 
   /* ویدئوی معرفی: لینک آپارات/یوتیوب، یا اسم فایل مثل "video.mp4". اگر آماده نیست خالی بگذارید. */
-  video: "",
+  videos: [
+  { title: "ویدئوی اول", url: "" },
+  { title: "ویدئوی دوم", url: "" },
+  { title: "ویدئوی سوم", url: "" }
+],
 
   /* برنامه‌های پیش‌رو. هر مورد یک خط: عنوان، تاریخ، توضیح. اگر خالی باشد پیام «به‌زودی» نشان داده می‌شود. */
   programs: [],
@@ -149,10 +157,18 @@ var b=sec('acts','alt','فعالیت‌ها');var ul=h('ul',{class:'acts'});
 S.activities.forEach(function(x){ul.append(h('li',{},h('b',{},x.t),h('span',{},x.d)));});
 b[1].append(ul);app.append(b[0]);
 
-var c=sec('video','vid','ویدئوی معرفی'),v=S.video;
-if(v&&/\.(mp4|webm|mov)(\?|$)/i.test(v)){var vd=h('video',{controls:'',playsinline:'',preload:'metadata'});vd.src=v;c[1].append(vd);}
-else if(ok(v)){c[1].append(h('a',{class:'b p',href:v,target:'_blank',rel:'noopener noreferrer'},'تماشای ویدئو'));}
-else c[1].append(h('div',{class:'empty'},'ویدئوی معرفی انجمن به‌زودی اینجا قرار می‌گیرد.'));
+var c=sec('video','vid','ویدئوی معرفی'),n=0;
+S.videos.forEach(function(x){
+ if(!ok(x.url))return;n++;
+ var u=x.url,src='',m;
+ if(m=u.match(/aparat\.com\/v\/([A-Za-z0-9]+)/))src='https://www.aparat.com/video/video/embed/videohash/'+m[1]+'/vt/frame';
+ else if(m=u.match(/(?:youtu\.be\/|v=)([\w-]{11})/))src='https://www.youtube.com/embed/'+m[1];
+ var box=h('div',{class:'vb'},h('b',{},x.title));
+ if(src){box.append(h('div',{class:'fr'},h('iframe',{src:src,allowfullscreen:'',loading:'lazy',title:x.title})));}
+ else box.append(h('a',{class:'b p',href:u,target:'_blank',rel:'noopener noreferrer'},'تماشا'));
+ c[1].append(box);
+});
+if(!n)c[1].append(h('div',{class:'empty'},'ویدئوهای معرفی انجمن به‌زودی اینجا قرار می‌گیرند.'));
 app.append(c[0]);
 
 var d=sec('programs','alt','برنامه‌های پیش‌رو');
