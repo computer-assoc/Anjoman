@@ -189,7 +189,7 @@ app.append(c[0]);
 
 var d=sec('programs','alt','برنامه‌های پیش‌رو');
 if(S.programs.length)S.programs.forEach(function(e){d[1].append(h('div',{class:'ev'},h('b',{},e.title),h('div',{},e.date),h('div',{},e.desc||'')));});
-else d[1].append(h('div',{class:'empty'},'برنامه‌ی بعدی هنوز اعلام نشده است. اطلاعیه‌ها را در کانال تلگرام دنبال کنید.'));
+else d[1].append(h('div',{class:'empty'},'برنامه‌ی بعدی هنوز اعلام نشده است. اطلاعیه‌ها را در کانال های انجمن دنبال کنید.'));
 app.append(d[0]);
 
 function items(id,cls,title,arr,tall,emptyMsg,label){
