@@ -143,8 +143,11 @@ var CONFIG = {
   ],
 
   /* نشریه: برای هر شماره‌ی جدید، یک خط اضافه کنید (جدیدترین اول). url = لینک دانلود یا مطالعه، cover = عکس جلد. */
-  newsletter: [
-    { title: "نمونه: شماره‌ی اول", date: "تاریخ انتشار", url: "", cover: "" }
+    newsletter: [
+    { title: "شماره‌ی چهارم", date: "۱۴۰۵/۰۸/۲۰", url: "issue4.pdf", cover: "" },
+    { title: "شماره‌ی سوم", date: "۱۴۰۵/۰۷/۲۰", url: "issue3.pdf", cover: "" },
+    { title: "شماره‌ی دوم", date: "۱۴۰۵/۰۶/۲۰", url: "issue2.pdf", cover: "" },
+    { title: "شماره‌ی اول", date: "۱۴۰۵/۰۵/۲۰", url: "issue1.pdf", cover: "" }
   ],
 
   /* راه‌های ارتباطی. text = متنی که دیده می‌شود، url = لینک آن. اگر url خالی باشد، «به‌زودی» نشان داده می‌شود. */
@@ -164,6 +167,7 @@ var S=CONFIG,app=document.getElementById('app');
 function h(t,a){var e=document.createElement(t);a=a||{};for(var k in a){if(k==='class')e.className=a[k];else e.setAttribute(k,a[k]);}
  for(var i=2;i<arguments.length;i++){var c=arguments[i];if(c==null)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;}
 function ok(u){return /^https?:\/\//i.test(u||'');}
+function okf(u){return ok(u)||/^[\w\-\/]+\.(mp3|m4a|pdf)$/i.test(u||'');}
 function sec(id,cls,title){var s=h('section',{id:id,class:cls||''}),w=h('div',{class:'w'});if(title)w.append(h('h2',{},title));s.append(w);return [s,w];}
 document.title=S.title;
 
@@ -220,7 +224,7 @@ function items(id,cls,title,arr,tall,emptyMsg,label){
   var tx=h('div',{class:'tx'},h('b',{},x.title),h('div',{class:'d'},x.date||''));
   if(x.desc)tx.append(h('div',{},x.desc));
   var li=h('li',{class:'it'},cv,tx);
-  if(ok(x.url))li.append(h('a',{class:'go',href:x.url,target:'_blank',rel:'noopener noreferrer'},label));
+  if(okf(x.url))li.append(h('a',{class:'go',href:x.url,target:'_blank',rel:'noopener noreferrer'},label));
   ul.append(li);
  });
  if(arr.length)s[1].append(ul);else s[1].append(h('div',{class:'empty'},emptyMsg));
